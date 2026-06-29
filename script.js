@@ -1,37 +1,39 @@
 let scannedID = "";
+let isProcessing = false;
 
 function onScanSuccess(decodedText) {
+
+  if (isProcessing) return; // cegah spam scan
+  isProcessing = true;
+
   scannedID = decodedText;
 
   document.getElementById("nama").innerText = "Memuat...";
   document.getElementById("kelas").innerText = "";
   document.getElementById("status").innerText = "";
 
-  // NANTI kita ganti link ini dengan Google Apps Script kamu
-  fetch("https://script.google.com/macros/s/AKfycbx27iCTIEHqS6W36j3oF3BVsh34pyCmNiXk_8DWDiFj6B7qGPJWcMd30YwtM_I06zf_/exec?id=" + decodedText)
+  fetch("https://script.google.com/macros/s/AKfycbx27iCTIEHqS6W36j3oF3BVsh34pyCmNiXk_8DWDiFj6B7qGPJWcMd30YwtM_I06zf_/exec?id=" + scannedID)
     .then(res => res.json())
     .then(data => {
+
+      if (!data || !data.ditemukan) {
+        document.getElementById("nama").innerText = "Tidak ditemukan";
+        document.getElementById("kelas").innerText = "";
+        document.getElementById("status").innerText = "";
+        return;
+      }
+
       document.getElementById("nama").innerText = data.nama;
       document.getElementById("kelas").innerText = data.kelas;
-      document.getElementById("status").innerText = data.status;
+      document.getElementById("status").innerText = data.status || "-";
+
     })
     .catch(err => {
       document.getElementById("status").innerText = "Error ambil data";
+    })
+    .finally(() => {
+      setTimeout(() => {
+        isProcessing = false; // reset scan
+      }, 2000);
     });
 }
-
-function izinKeluar() {
-  alert("Santri diizinkan keluar (nanti disambungkan ke database)");
-}
-
-function santriKembali() {
-  alert("Santri kembali (nanti disambungkan ke database)");
-}
-
-// aktifkan kamera QR
-let html5QrcodeScanner = new Html5QrcodeScanner(
-  "reader",
-  { fps: 10, qrbox: 250 }
-);
-
-html5QrcodeScanner.render(onScanSuccess);
