@@ -8,7 +8,7 @@ function onScanSuccess(decodedText) {
   document.getElementById("status").innerText = "";
 
   // NANTI kita ganti link ini dengan Google Apps Script kamu
-  fetch("PASTE_LINK_APPS_SCRIPT_DI_SINI?id=" + decodedText)
+  fetch("https://script.google.com/macros/s/AKfycbx27iCTIEHqS6W36j3oF3BVsh34pyCmNiXk_8DWDiFj6B7qGPJWcMd30YwtM_I06zf_/exec?id=" + decodedText)
     .then(res => res.json())
     .then(data => {
       document.getElementById("nama").innerText = data.nama;
