@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Scan Izin Santri</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h2>Scan QR Izin Santri</h2>
+
+  <div id="reader"></div>
+
+  <div id="result">
+    <p>Nama: <span id="nama"></span></p>
+    <p>Kelas: <span id="kelas"></span></p>
+    <p>Status: <span id="status"></span></p>
+  </div>
+
+  <button onclick="izinKeluar()">Izinkan Keluar</button>
+  <button onclick="santriKembali()">Santri Kembali</button>
+
+  <script src="https://unpkg.com/html5-qrcode"></script>
+  <script src="script.js"></script>
+
+</body>
+</html>
