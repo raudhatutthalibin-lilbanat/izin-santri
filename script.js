@@ -37,3 +37,30 @@ function onScanSuccess(decodedText) {
       }, 2000);
     });
 }
+function izinKeluar() {
+
+  if (!scannedID) {
+    alert("Scan dulu santri!");
+    return;
+  }
+
+  fetch("https://script.google.com/macros/s/AKfycbx27iCTIEHqS6W36j3oF3BVsh34pyCmNiXk_8DWDiFj6B7qGPJWcMd30YwtM_I06zf_/exec?id=" + scannedID)
+    .then(res => res.json())
+    .then(data => {
+      alert(data.nama + " diizinkan keluar");
+    });
+}
+
+function santriKembali() {
+
+  if (!scannedID) {
+    alert("Scan dulu santri!");
+    return;
+  }
+
+  fetch("https://script.google.com/macros/s/AKfycbx27iCTIEHqS6W36j3oF3BVsh34pyCmNiXk_8DWDiFj6B7qGPJWcMd30YwtM_I06zf_/exec?id=" + scannedID)
+    .then(res => res.json())
+    .then(data => {
+      alert(data.nama + " sudah kembali");
+    });
+}
