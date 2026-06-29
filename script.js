@@ -12,7 +12,16 @@ function onScanSuccess(decodedText) {
   document.getElementById("kelas").innerText = "";
   document.getElementById("status").innerText = "";
 
-  fetch("https://script.google.com/macros/s/AKfycbx27iCTIEHqS6W36j3oF3BVsh34pyCmNiXk_8DWDiFj6B7qGPJWcMd30YwtM_I06zf_/exec?id=" + scannedID)
+  
+  const url =
+  "https://script.google.com/macros/s/AKfycbx27iCTIEHqS6W36j3oF3BVsh34pyCmNiXk_8DWDiFj6B7qGPJWcMd30YwtM_I06zf_/exec?id=" +
+  encodeURIComponent(scannedID);
+
+fetch(url, {
+  method: "GET",
+  mode: "cors",
+  redirect: "follow"
+})
     .then(res => res.json())
     .then(data => {
 
